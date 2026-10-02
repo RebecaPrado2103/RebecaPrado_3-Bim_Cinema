@@ -7,20 +7,22 @@
 
 /* --- Variáveis de Cores --- */
 :root {
-    --cor-primaria: #e02929;
-    --cor-secundaria: #db3434;
-    --cor-secundaria-hover: #b92929;
-    --cor-fundo: #63676a;
-    --cor-texto: #333333;
-    --cor-aviso: #e74c3c;
-    --cor-borda: #dad3ce;
-    --cor-branco: #e1dfd8;
+    --cor-primaria: #b85c6e;
+    --cor-secundaria: #d98b9b;
+    --cor-secundaria-hover: #a94c60;
+    --cor-fundo: #eee6e8;
+    --cor-texto: #51454a;
+    --cor-aviso: #c75c6b;
+    --cor-borda: #d9b9c1;
+    --cor-branco: #fffaf8;
 }
 
 /* --- Estrutura Geral --- */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--cor-fundo);
+    background-size: cover;
+    background-position: center;
     color: var(--cor-texto);
     display: flex;
     flex-direction: column;
@@ -29,21 +31,23 @@ body {
 
 /* --- Header Semântico --- */
 header {
-    background-color: var(--cor-primaria);
+    background-color: rgba(184, 92, 110, 0.95);
     color: var(--cor-branco);
     padding: 2rem 1rem;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-bottom: 3px solid #e8c8cf;
+    box-shadow: 0 4px 10px rgba(80, 50, 60, 0.2);
 }
 
 header h1 {
     margin-bottom: 0.5rem;
-    font-size: 2.2rem;
+    font-size: 2.4rem;
+    letter-spacing: 1px;
 }
 
 header p {
     font-size: 1rem;
-    opacity: 0.8;
+    color: #fff4f5;
 }
 
 /* --- Main (Conteúdo Central) --- */
@@ -51,7 +55,7 @@ main.container-master {
     flex: 1;
     width: 100%;
     max-width: 1000px;
-    margin: 2rem auto;
+    margin: 2.5rem auto;
     padding: 0 1rem;
 }
 
@@ -60,10 +64,11 @@ main.container-master {
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
-    background-color: var(--cor-branco);
+    background-color: rgba(255, 250, 248, 0.95);
     padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 18px;
+    border: 2px solid var(--cor-borda);
+    box-shadow: 0 4px 15px rgba(80, 50, 60, 0.15);
     margin-bottom: 2rem;
 }
 
@@ -88,16 +93,18 @@ main.container-master {
     margin-top: 1rem;
     margin-bottom: 0.3rem;
     font-size: 0.95rem;
+    color: var(--cor-texto);
 }
 
 .form-esquerda input[type="text"],
 .form-esquerda input[type="number"] {
     width: 100%;
-    padding: 0.6rem;
+    padding: 0.7rem;
     border: 1px solid var(--cor-borda);
-    border-radius: 4px;
+    border-radius: 7px;
     font-size: 1rem;
     transition: border-color 0.3s;
+    background-color: #fffdfc;
 }
 
 .form-esquerda input:focus {
@@ -105,6 +112,7 @@ main.container-master {
     border-color: var(--cor-secundaria);
 }
 
+/* --- Linha do ID --- */
 .linha-id {
     display: flex;
     gap: 0.5rem;
@@ -116,21 +124,52 @@ main.container-master {
     width: 150px;
 }
 
+/* --- Menus de Gênero e Sala --- */
+
+select {
+    width: 100%;
+    padding: 0.7rem 2.5rem 0.7rem 0.8rem;
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    background-color: #fffdfc;
+    color: var(--cor-texto);
+    font-size: 1rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+select:hover {
+    border-color: var(--cor-secundaria);
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 3px rgba(184, 92, 110, 0.12);
+}
+
+select option {
+    background-color: var(--cor-branco);
+    color: var(--cor-texto);
+}
+
 /* --- Botões --- */
 input[type="button"] {
-    background-color: var(--cor-secundaria);
+    background-color: var(--cor-primaria);
     color: var(--cor-branco);
     border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 4px;
+    padding: 0.65rem 1.3rem;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     font-size: 0.9rem;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 input[type="button"]:hover {
     background-color: var(--cor-secundaria-hover);
+    transform: translateY(-2px);
 }
 
 .botoes-acao {
@@ -143,10 +182,10 @@ input[type="button"]:hover {
 #divAviso {
     margin-top: 1.5rem;
     padding: 1rem;
-    background-color: #fce4e4;
+    background-color: #fcecef;
     color: var(--cor-aviso);
     border-left: 5px solid var(--cor-aviso);
-    border-radius: 4px;
+    border-radius: 7px;
     font-weight: bold;
     font-size: 0.9rem;
 }
@@ -168,7 +207,7 @@ input[type="button"]:hover {
 
 .instrucao-imagem {
     font-size: 0.85rem;
-    color: #666;
+    color: #756970;
     margin-bottom: 1rem;
 }
 
@@ -183,11 +222,11 @@ input[type="button"]:hover {
     height: 350px;
     object-fit: cover;
     border: 3px dashed var(--cor-borda);
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 5px;
     cursor: pointer;
     transition: border-color 0.3s, transform 0.3s;
-    background-color: #eee;
+    background-color: #fffdfc;
 }
 
 .img-container img:hover {
@@ -197,10 +236,11 @@ input[type="button"]:hover {
 
 /* --- Section Listagem --- */
 .lista-filmes {
-    background-color: var(--cor-branco);
+    background-color: rgba(255, 250, 248, 0.95);
     padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 18px;
+    border: 2px solid var(--cor-borda);
+    box-shadow: 0 4px 15px rgba(80, 50, 60, 0.15);
 }
 
 .lista-filmes h3 {
@@ -214,7 +254,7 @@ input[type="button"]:hover {
     font-family: monospace;
     font-size: 1rem;
     line-height: 1.6;
-    color: #555;
+    color: #655960;
 }
 
 /* --- Footer Semântico --- */
@@ -225,6 +265,7 @@ footer {
     padding: 1.5rem 1rem;
     margin-top: 2rem;
     font-size: 0.9rem;
+    border-top: 3px solid #e8c8cf;
 }
 
 /* --- Responsividade --- */
@@ -232,7 +273,7 @@ footer {
     .conteudo-principal {
         flex-direction: column;
     }
-    
+
     .form-direita {
         order: -1;
         margin-bottom: 1.5rem;
@@ -240,6 +281,6 @@ footer {
 
     .linha-id input[type="text"] {
         flex: 1;
-        width: auto; 
+        width: auto;
     }
 }

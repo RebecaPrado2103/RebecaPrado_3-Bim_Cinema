@@ -14,6 +14,15 @@ const btnSalvar = document.getElementById('btnSalvar');
 const pessoasTableBody = document.getElementById('pessoasTableBody');
 const messageContainer = document.getElementById('messageContainer');
 
+const btnVerPessoas = document.getElementById('btnVerPessoas');
+const btnVerClientes = document.getElementById('btnVerClientes');
+const btnVerFuncionarios = document.getElementById('btnVerFuncionarios');
+
+const tituloTabela = document.getElementById('tituloTabela');
+const tabelaCabecalho = document.getElementById('tabelaCabecalho');
+
+let tipoListaAtual = 'pessoas';
+
 // Carregar lista de pessoas e popular menu de cargos ao inicializar
 document.addEventListener('DOMContentLoaded', () => {
     carregarPessoas();
@@ -27,6 +36,21 @@ btnAlterar.addEventListener('click', alterarPessoa);
 btnExcluir.addEventListener('click', excluirPessoa);
 btnCancelar.addEventListener('click', cancelarOperacao);
 btnSalvar.addEventListener('click', salvarOperacao);
+
+btnVerPessoas.addEventListener('click', () => {
+    tipoListaAtual = 'pessoas';
+    carregarPessoas();
+});
+
+btnVerClientes.addEventListener('click', () => {
+    tipoListaAtual = 'clientes';
+    carregarPessoas();
+});
+
+btnVerFuncionarios.addEventListener('click', () => {
+    tipoListaAtual = 'funcionarios';
+    carregarPessoas();
+});
 
 mostrarBotoes(true, false, false, false, false, false);
 bloquearCampos(false);
@@ -245,9 +269,16 @@ async function salvarOperacao() {
     if (document.getElementById('checkboxFuncionario').checked) {
         funcionario = {
             pessoa_cpf_pessoa: pessoa.cpf_pessoa,
-            salario_funcionario: document.getElementById('salario_funcionario').value,
-            cargo_id_cargo: parseInt(document.getElementById('cargo_id_cargo').value, 10),
-            porcentagem_comissao_funcionario: document.getElementById('porcentagem_comissao_funcionario').value
+            salario_funcionario: parseFloat(
+                document.getElementById('salario_funcionario').value
+            ),
+            cargo_id_cargo: parseInt(
+                document.getElementById('cargo_id_cargo').value,
+                10
+            ),
+            porcentagem_comissao_funcionario: parseFloat(
+                document.getElementById('porcentagem_comissao_funcionario').value
+            )
         };
     }
     const caminhoFunc = `${API_BASE_URL}/funcionario/${currentPersonId}`;
@@ -413,40 +444,153 @@ function cancelarOperacao() {
 
 async function carregarPessoas() {
     try {
-        const response = await fetch(`${API_BASE_URL}/pessoa/listar`);
-        const data = await response.json();
 
-        if (response.ok && data.sucesso) {
-            renderizarTabelaPessoas(data.pessoas);
+        if (tipoListaAtual === 'clientes') {
+
+            const resposta = await fetch(`${API_BASE_URL}/cliente`);
+            const dados = await resposta.json();
+
+            renderizarTabelaClientes(dados);
+
+        } else if (tipoListaAtual === 'funcionarios') {
+
+            const resposta = await fetch(`${API_BASE_URL}/funcionario`);
+            const dados = await resposta.json();
+
+            renderizarTabelaFuncionarios(dados.funcionarios);
+
         } else {
-            throw new Error(data.mensagem || 'Erro ao carregar pessoas');
+
+            const resposta = await fetch(`${API_BASE_URL}/pessoa/listar`);
+            const dados = await resposta.json();
+
+            renderizarTabelaPessoas(dados.pessoas);
         }
+
     } catch (error) {
-        console.error('Erro:', error);
-        mostrarMensagem('Erro ao carregar lista de pessoas', 'error');
+        console.error('Erro ao carregar lista:', error);
     }
 }
 
 function renderizarTabelaPessoas(pessoas) {
+
+    tituloTabela.textContent = 'Lista de Pessoas';
+
+    tabelaCabecalho.innerHTML = `
+        <tr>
+            <th>CPF</th>
+            <th>Nome</th>
+            <th>Data Nascimento</th>
+            <th>Endereço</th>
+            <th>Senha</th>
+            <th>Email</th>
+        </tr>
+    `;
+
     pessoasTableBody.innerHTML = '';
 
     pessoas.forEach(pessoa => {
         const row = document.createElement('tr');
+
         row.innerHTML = `
             <td>
-                <button class="btn-id" onclick="selecionarPessoa(${pessoa.cpf_pessoa})">
+                <button class="btn-id" onclick="selecionarPessoa('${pessoa.cpf_pessoa}')">
                     ${pessoa.cpf_pessoa}
                 </button>
             </td>
             <td>${pessoa.nome_pessoa}</td>
-            <td>${formatarData(pessoa.data_nascimento_pessoa)}</td>                 
+            <td>${formatarData(pessoa.data_nascimento_pessoa)}</td>
             <td>${pessoa.endereco_pessoa}</td>
-            <td>${pessoa.senha_pessoa}</td>
+            <td>••••••</td>
             <td>${pessoa.email_pessoa}</td>
         `;
+
         pessoasTableBody.appendChild(row);
     });
 }
+
+function renderizarTabelaClientes(clientes) {
+
+    tituloTabela.textContent = 'Lista de Clientes';
+
+    tabelaCabecalho.innerHTML = `
+        <tr>
+            <th>CPF</th>
+            <th>Nome</th>
+            <th>Renda Mensal</th>
+            <th>Data de Cadastro</th>
+        </tr>
+    `;
+
+    pessoasTableBody.innerHTML = '';
+
+    clientes.forEach(cliente => {
+
+        const linha = document.createElement('tr');
+
+        linha.innerHTML = `
+            <td>
+                <button class="btn-id" onclick="selecionarPessoa('${cliente.pessoa_cpf_pessoa}')">
+                    ${cliente.pessoa_cpf_pessoa}
+                </button>
+            </td>
+            <td>${cliente.nome_pessoa}</td>
+            <td>R$ ${cliente.renda_cliente}</td>
+            <td>${cliente.data_cadastro_cliente}</td>
+        `;
+
+        pessoasTableBody.appendChild(linha);
+    });
+}
+
+function renderizarTabelaFuncionarios(funcionarios) {
+
+    tituloTabela.textContent = 'Lista de Funcionários';
+
+    tabelaCabecalho.innerHTML = `
+        <tr>
+            <th>CPF</th>
+            <th>Nome</th>
+            <th>Salário</th>
+            <th>ID do Cargo</th>
+            <th>Comissão</th>
+        </tr>
+    `;
+
+    pessoasTableBody.innerHTML = '';
+
+    funcionarios.forEach(funcionario => {
+
+        const linha = document.createElement('tr');
+
+        linha.innerHTML = `
+            <td>
+                <button class="btn-id" onclick="selecionarPessoa('${funcionario.pessoa_cpf_pessoa}')">
+                    ${funcionario.pessoa_cpf_pessoa}
+                </button>
+            </td>
+            <td>${funcionario.nome_pessoa}</td>
+            <td>R$ ${funcionario.salario_funcionario}</td>
+            <td>${funcionario.cargo_id_cargo}</td>
+            <td>${funcionario.porcentagem_comissao_funcionario}%</td>
+        `;
+
+        pessoasTableBody.appendChild(linha);
+    });
+}
+
+function prepararTabela(titulo, colunas) {
+    tituloTabela.textContent = titulo;
+
+    tabelaCabecalho.innerHTML = `
+        <tr>
+            ${colunas.map(coluna => `<th>${coluna}</th>`).join('')}
+        </tr>
+    `;
+
+    pessoasTableBody.innerHTML = '';
+}
+
 
 async function selecionarPessoa(id) {
     searchId.value = id;

@@ -7,19 +7,22 @@
 
 /* --- Variáveis de Cores --- */
 :root {
-    --cor-primaria: #e02929;
-    --cor-secundaria: #db3434;
-    --cor-secundaria-hover: #b92929;
-    --cor-fundo: #63676a;
-    --cor-texto: #333333;
-    --cor-borda: #daced4;
-    --cor-branco: #e1dfd8;
+    --cor-primaria: #b85c6e;
+    --cor-secundaria: #d98b9b;
+    --cor-secundaria-hover: #a94c60;
+    --cor-fundo: #eee6e8;
+    --cor-texto: #51454a;
+    --cor-borda: #d9b9c1;
+    --cor-branco: #fffaf8;
 }
 
 /* --- Estrutura Geral --- */
 body {
     font-family: 'DM Serif Display', sans-serif;
-    background-image: url(holofotes.png);
+    background-color: var(--cor-fundo);
+    background-image: url(cineminha.png);
+    background-size: cover;
+    background-position: center;
     color: var(--cor-texto);
     display: flex;
     flex-direction: column;
@@ -28,28 +31,30 @@ body {
 
 /* --- Header Semântico --- */
 header {
-    background-color: var(--cor-primaria);
+    background-color: rgba(184, 92, 110, 0.95);
     color: var(--cor-branco);
     padding: 2rem 1rem;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-bottom: 3px solid #e8c8cf;
+    box-shadow: 0 4px 10px rgba(80, 50, 60, 0.2);
 }
 
 header h1 {
     margin-bottom: 0.5rem;
-    font-size: 2.2rem;
+    font-size: 2.8rem;
+    letter-spacing: 2px;
 }
 
 header p {
     font-size: 1rem;
-    opacity: 0.8;
+    color: #fff4f5;
 }
 
-/* --- Main (Conteúdo Central) --- */
+/* --- Main --- */
 main.container-master {
     flex: 1;
     width: 100%;
-    max-width: 900px;
+    max-width: 1100px;
     margin: 3rem auto;
     padding: 0 1rem;
 }
@@ -57,19 +62,19 @@ main.container-master {
 /* --- Grid de Opções --- */
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.8rem;
 }
 
 .card-menu {
-    background-color: var(--cor-branco);
-    padding: 2.5rem 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    background-color: rgba(255, 250, 248, 0.95);
+    padding: 2.2rem 1.5rem;
+    border-radius: 18px;
+    box-shadow: 0 4px 15px rgba(80, 50, 60, 0.15);
     text-decoration: none;
     color: var(--cor-texto);
     text-align: center;
-    border: 2px solid transparent;
+    border: 2px solid var(--cor-borda);
     transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
     display: flex;
     flex-direction: column;
@@ -79,27 +84,28 @@ main.container-master {
 .card-menu:hover {
     transform: translateY(-5px);
     border-color: var(--cor-secundaria);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(80, 50, 60, 0.2);
 }
 
 .card-icon {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 1rem;
 }
 
 .card-menu h2 {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     color: var(--cor-primaria);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.7rem;
+    letter-spacing: 1px;
 }
 
 .card-menu p {
     font-size: 0.95rem;
-    color: #666;
-    line-height: 1.4;
+    color: #756970;
+    line-height: 1.5;
 }
 
-/* --- Footer Semântico --- */
+/* --- Footer --- */
 footer {
     background-color: var(--cor-primaria);
     color: var(--cor-branco);
@@ -107,4 +113,5 @@ footer {
     padding: 1.5rem 1rem;
     margin-top: 2rem;
     font-size: 0.9rem;
+    border-top: 3px solid #e8c8cf;
 }

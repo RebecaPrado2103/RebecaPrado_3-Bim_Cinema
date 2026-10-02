@@ -7,20 +7,23 @@
 
 /* --- Variáveis de Cores --- */
 :root {
-   --cor-primaria: #e02929;
-    --cor-secundaria: #db3434;
-    --cor-secundaria-hover: #b92929;
-    --cor-fundo: #818283;
-    --cor-texto: #333333;
-    --cor-aviso: #e74c3c;
-    --cor-borda: #dad3ce;
-    --cor-branco: #e1dfd8;
+    --cor-primaria: #b85c6e;
+    --cor-secundaria: #d98b9b;
+    --cor-secundaria-hover: #a94c60;
+    --cor-fundo: #eee6e8;
+    --cor-texto: #51454a;
+    --cor-aviso: #c75c6b;
+    --cor-borda: #d9b9c1;
+    --cor-branco: #fffaf8;
 }
 
 /* --- Estrutura Geral --- */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--cor-fundo);
+    background-image: url(holofotes.png);
+    background-size: cover;
+    background-position: center;
     color: var(--cor-texto);
     display: flex;
     flex-direction: column;
@@ -29,16 +32,18 @@ body {
 
 /* --- Header Semântico --- */
 header {
-    background-color: var(--cor-primaria);
+    background-color: rgba(184, 92, 110, 0.95);
     color: var(--cor-branco);
     padding: 2rem 1rem;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-bottom: 3px solid #e8c8cf;
+    box-shadow: 0 4px 10px rgba(80, 50, 60, 0.2);
 }
 
 header h1 {
     margin-bottom: 0.5rem;
-    font-size: 2.2rem;
+    font-size: 2.4rem;
+    letter-spacing: 1px;
 }
 
 /* --- Main (Conteúdo Central) --- */
@@ -46,17 +51,18 @@ main {
     flex: 1;
     width: 100%;
     max-width: 1000px;
-    margin: 2rem auto;
+    margin: 2.5rem auto;
     padding: 0 1rem;
 }
 
 /* --- Seções em Cards --- */
 .form-section,
 .list-section {
-    background-color: var(--cor-branco);
+    background-color: rgba(255, 250, 248, 0.95);
     padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 18px;
+    border: 2px solid var(--cor-borda);
+    box-shadow: 0 4px 15px rgba(80, 50, 60, 0.15);
     margin-bottom: 2rem;
 }
 
@@ -79,6 +85,7 @@ main {
 .search-container label {
     font-weight: bold;
     font-size: 0.95rem;
+    color: var(--cor-texto);
 }
 
 .search-input-group {
@@ -99,11 +106,13 @@ input[type="date"],
 input[type="password"],
 input[type="email"],
 select {
-    padding: 0.6rem;
+    padding: 0.7rem;
     border: 1px solid var(--cor-borda);
-    border-radius: 4px;
+    border-radius: 7px;
     font-size: 1rem;
     transition: border-color 0.3s;
+    background-color: #fffdfc;
+    color: var(--cor-texto);
 }
 
 input:focus,
@@ -115,9 +124,10 @@ select:focus {
 /* --- Fieldset e Agrupamentos do Formulário --- */
 fieldset#formFields {
     border: 1px solid var(--cor-borda);
-    border-radius: 6px;
+    border-radius: 10px;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
+    background-color: #fffdfc;
 }
 
 fieldset#formFields legend {
@@ -152,10 +162,10 @@ fieldset#formFields legend {
 
 .funcionario,
 .cliente {
-    background-color: #cb7c7c;
+    background-color: #f8e9ed;
     border: 1px solid var(--cor-borda);
     padding: 1rem;
-    border-radius: 6px;
+    border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -184,52 +194,57 @@ fieldset#formFields legend {
 /* --- Botões --- */
 button,
 input[type="button"] {
-    background-color: var(--cor-secundaria);
+    background-color: var(--cor-primaria);
     color: var(--cor-branco);
     border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 4px;
+    padding: 0.65rem 1.3rem;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     font-size: 0.9rem;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 button:hover,
 input[type="button"]:hover {
     background-color: var(--cor-secundaria-hover);
+    transform: translateY(-2px);
 }
 
 .btn-primary {
-    background-color: var(--cor-secundaria);
+    background-color: var(--cor-primaria);
 }
 
 .btn-secondary {
-    background-color: #7f8c8d;
+    background-color: #9b8290;
 }
+
 .btn-secondary:hover {
-    background-color: #6c7a89;
+    background-color: #806875;
 }
 
 .btn-danger {
     background-color: var(--cor-aviso);
 }
+
 .btn-danger:hover {
-    background-color: #c0392b;
+    background-color: #b84d5c;
 }
 
 .btn-save {
-    background-color: #2ecc71;
+    background-color: #70a88a;
 }
+
 .btn-save:hover {
-    background-color: #27ae60;
+    background-color: #5c9275;
 }
 
 .btn-cancel {
-    background-color: #95a5a6;
+    background-color: #9b9a9c;
 }
+
 .btn-cancel:hover {
-    background-color: #7f8c8d;
+    background-color: #7f7e80;
 }
 
 /* --- Listagem / Tabela --- */
@@ -241,9 +256,12 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
+    overflow: hidden;
+    border-radius: 8px;
 }
 
-th, td {
+th,
+td {
     border: 1px solid var(--cor-borda);
     padding: 0.75rem;
     text-align: left;
@@ -257,11 +275,11 @@ th {
 }
 
 tbody tr:nth-child(even) {
-    background-color: #f2f4f7;
+    background-color: #f8eef0;
 }
 
 tbody tr:hover {
-    background-color: #e9ecef;
+    background-color: #f3dfe4;
 }
 
 /* --- Notificações --- */
@@ -274,26 +292,26 @@ tbody tr:hover {
 
 .message {
     padding: 1rem 1.5rem;
-    border-radius: 4px;
+    border-radius: 8px;
     font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(80, 50, 60, 0.2);
 }
 
 .message.success {
-    background-color: #d4edda;
-    color: #155724;
-    border-left: 5px solid #28a745;
+    background-color: #e1f1e7;
+    color: #47715a;
+    border-left: 5px solid #70a88a;
 }
 
 .message.error {
-    background-color: #f8d7da;
-    color: #721c24;
+    background-color: #f8dfe3;
+    color: #8d3e4b;
     border-left: 5px solid var(--cor-aviso);
 }
 
 .message.info {
-    background-color: #d1ecf1;
-    color: #0c5460;
+    background-color: #eee4f0;
+    color: #69516d;
     border-left: 5px solid var(--cor-secundaria);
 }
 
@@ -305,6 +323,7 @@ footer {
     padding: 1.5rem 1rem;
     margin-top: 2rem;
     font-size: 0.9rem;
+    border-top: 3px solid #e8c8cf;
 }
 
 /* --- Responsividade --- */

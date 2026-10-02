@@ -37,14 +37,10 @@ exports.obterPessoa = async (req, res) => {
 // Criar pessoa
 exports.criarPessoa = async (req, res) => {
     try {
-        const { cpf_pessoa, nome_pessoa, idade, email_pessoa } = req.body;
+        const { cpf_pessoa, nome_pessoa, data_nascimento_pessoa, endereco_pessoa, senha_pessoa, email_pessoa } = req.body;
 
         if (!nome_pessoa) {
             return res.status(400).json({ sucesso: false, mensagem: 'O nome da pessoa é obrigatório.' });
-        }
-
-        if (!idade || isNaN(idade)) {
-            return res.status(400).json({ sucesso: false, mensagem: 'Digite uma idade válida.' });
         }
 
         if (!email_pessoa) {
@@ -52,15 +48,17 @@ exports.criarPessoa = async (req, res) => {
         }
 
         const sql = `
-            INSERT INTO PESSOA (cpf_pessoa, nome_pessoa, idade, email_pessoa)
-            VALUES ($1, $2, $3, $4)
+            INSERT INTO PESSOA (cpf_pessoa, nome_pessoa, data_nascimento_pessoa, endereco_pessoa, senha_pessoa, email_pessoa)
+            VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING *
         `;
 
         const values = [
             cpf_pessoa,
             nome_pessoa,
-            idade,
+            data_nascimento_pessoa,
+            endereco_pessoa,
+            senha_pessoa,
             email_pessoa
         ];
 
@@ -79,20 +77,24 @@ exports.criarPessoa = async (req, res) => {
 exports.atualizarPessoa = async (req, res) => {
     try {
         const cpf = req.params.cpf;
-        const { nome_pessoa, idade, email_pessoa } = req.body;
+        const { nome_pessoa, data_nascimento_pessoa, endereco_pessoa, senha_pessoa, email_pessoa } = req.body;
 
         const sql = `
             UPDATE PESSOA
             SET nome_pessoa = $1, 
-                idade = $2, 
-                email_pessoa = $3
-            WHERE cpf_pessoa = $4
+                data_nascimento_pessoa = $2, 
+                endereco_pessoa = $3 
+                senha_pessoa = $4
+                email_pessoa = $5
+            WHERE cpf_pessoa = $6
             RETURNING *
         `;
 
         const values = [
             nome_pessoa,
-            idade,
+            data_nascimento_pessoa,
+            endereco_pessoa, 
+            senha_pessoa,
             email_pessoa,
             cpf
         ];
